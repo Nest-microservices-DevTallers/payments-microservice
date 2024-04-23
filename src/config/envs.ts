@@ -7,6 +7,8 @@ interface EnvVars {
   STRIPE_SUCCESS_URL: string;
   STRIPE_CANCEL_URL: string;
   STRIPE_SECRET: string;
+
+  NATS_SERVERS: string[];
 }
 
 const envSchema = Joi.object({
@@ -15,9 +17,14 @@ const envSchema = Joi.object({
   STRIPE_SUCCESS_URL: Joi.string().required(),
   STRIPE_CANCEL_URL: Joi.string().required(),
   STRIPE_SECRET: Joi.string().required(),
+
+  NATS_SERVERS: Joi.array().items(Joi.string()).required(),
 }).unknown(true);
 
-const { error, value } = envSchema.validate(process.env);
+const { error, value } = envSchema.validate({
+  ...process.env,
+  NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
+});
 
 if (error) throw new Error(`Config calidation error: ${error.message}`);
 
@@ -29,4 +36,6 @@ export const envs = {
   stripeSuccessUrl: envVars.STRIPE_SUCCESS_URL,
   stripeCancelUrl: envVars.STRIPE_CANCEL_URL,
   stripeSecret: envVars.STRIPE_SECRET,
+
+  natsServers: envVars.NATS_SERVERS,
 };
