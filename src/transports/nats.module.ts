@@ -27,4 +27,4 @@ import { envs, NATS_SERVICE } from '@server/config';
     ]),
   ],
 })
-export class NatsModule { }
+export class NatsModule {}
