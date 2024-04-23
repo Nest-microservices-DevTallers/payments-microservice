@@ -2,6 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { envs } from './config';
 
 async function bootstrap() {
   const logger = new Logger();
@@ -16,8 +17,8 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000, () => {
-    logger.log(`🚀 Payments microservice running on port ${3000} `);
+  await app.listen(envs.port, () => {
+    logger.log(`🚀 Payments microservice running on port ${envs.port} `);
   });
 }
 bootstrap();
