@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@transports/*": ["src/transports/*"],
       "@payments/*": ["src/payments/*"],
       "@server/*": ["src/*"]
     }
